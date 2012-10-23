@@ -1,12 +1,15 @@
 class CustomersController < ApplicationController
   before_filter :authenticate_user!
-
-
   # GET /customers
   # GET /customers.json
-  def index
-    @customers = Customer.all 
 
+  def create  
+     @customers = current_user.customer.build(:customer_id => params[:customer_id])  
+   end
+
+  def index
+    @customers = Customer.all
+    
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @customers }
